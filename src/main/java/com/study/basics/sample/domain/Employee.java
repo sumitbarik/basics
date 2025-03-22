@@ -1,4 +1,4 @@
-import lombok.*;
+package com.study.basics.sample.domain;
 
 //@Data
 //@AllArgsConstructor
