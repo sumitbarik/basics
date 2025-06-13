@@ -5,7 +5,7 @@ import java.util.*;
 public class Practice {
 
     public static void main(String[] args) {
-        System.out.println("treeset::");
+        System.out.println("treeset:: compares based on provided comarator to save");
 
         Set<String> treeSet = new TreeSet<>(Comparator.comparing(String::length));
         treeSet.add("Sumit Barik");
@@ -23,7 +23,7 @@ public class Practice {
         hashSet.add("Sanket Padhy");
 
         hashSet.forEach(System.out::println);
-        System.out.println("sortedset::");
+        System.out.println("sortedset:: maintains alphabetical order");
 
         SortedSet<String> sortedSet = new TreeSet<>();
         sortedSet.add("Sumit Barik");
