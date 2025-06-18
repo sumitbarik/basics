@@ -26,9 +26,10 @@ public class Sample1 {
 
 //        findDuplicateString(value);
 //        removeDuplicateFromString(value);
-//        findLongestString(value);
+       findLongestString(value);
 //        findUniqueItems(value);
-        findFirstNonRepeatElement(value);
+        // findFirstNonRepeatWord(value);
+        // findSecondNonRepeatedCharacter(value);
 //        findSecondHighestNumber(intList);
 //        findSecondHighestSalary(employees);
 //        sortBasedOnSalaryThenName(employees);
@@ -54,23 +55,28 @@ public class Sample1 {
         System.out.println(intList.stream().sorted(Comparator.reverseOrder()).skip(1).findFirst().get());
     }
 
-    private static void findFirstNonRepeatElement(String value) {
+    private static void findFirstNonRepeatWord(String value) {
         System.out.println(Arrays.stream(value.split(" "))
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
                 .entrySet().stream()
                 .filter(x->x.getValue()==1)
                 .map(Map.Entry::getKey)
                 .findFirst().get());
+    }
 
-        String val = String.valueOf("cactus".chars().mapToObj(c->(char) c)
-                .collect(Collectors.groupingBy(x->x, HashMap::new, Collectors.counting()))
+    private static void findSecondNonRepeatedCharacter(String value) {
+    
+        String val = String.valueOf(value.chars().mapToObj(c->(char) c)
+                .collect(Collectors.groupingBy(x->x, LinkedHashMap::new, Collectors.counting()))
                 .entrySet()
                 .stream()
                 .filter(x->x.getValue()==1)
+                .skip(1)
                 .findFirst()
                 .map(Map.Entry::getKey).get());
-        System.out.println(val);
+        System.out.println("Second non-repeated character:: " + val);
     }
+
 
     private static void findUniqueItems(String value) {
         System.out.println(Arrays.stream(value.split(" ")).distinct().collect(Collectors.toList()));
@@ -78,8 +84,7 @@ public class Sample1 {
 
     private static void findLongestString(String value) {
         Map<Object, Long> map =
-//                Arrays.stream(value.split(" ")).distinct().collect(Collectors.toMap(x->x, String::length));
-                Arrays.stream(value.split(" ")).distinct().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+                Arrays.stream(value.split(" ")).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()));
         System.out.println(map);
         System.out.println("longest string:: " +map.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey());
 
